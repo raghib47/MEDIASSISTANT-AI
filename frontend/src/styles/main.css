@@ -1,0 +1,117 @@
+/* MediAssist AI: healthcare theme. White background, teal / blue / light-green accents. */
+:root {
+  --teal: #0d9488;
+  --teal-dark: #0f766e;
+  --blue: #2563eb;
+  --green-light: #dcfce7;
+  --teal-light: #ccfbf1;
+  --blue-light: #eff6ff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --bg: #ffffff;
+  --bg-soft: #f8fafc;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --radius: 16px;
+  --font: "Inter", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { font-family: var(--font); color: var(--ink); background: var(--bg-soft); -webkit-font-smoothing: antialiased; }
+
+/* Bangla text: dedicated font, slightly larger line-height for conjuncts/matras */
+[lang="bn"] { font-family: "Noto Sans Bengali", "Inter", system-ui, sans-serif; line-height: 1.8; }
+
+.app { display: flex; flex-direction: column; height: 100%; max-width: 980px; margin: 0 auto; background: var(--bg); box-shadow: 0 0 40px rgba(15, 23, 42, 0.06); }
+
+/* ---------- Navbar ---------- */
+.navbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px; color: #fff; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); }
+.navbar__brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.navbar__logo { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(255, 255, 255, 0.2); flex-shrink: 0; }
+.navbar__title { margin: 0; font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; }
+.navbar__tagline { margin: 0; font-size: 0.78rem; opacity: 0.9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.navbar__actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; padding: 4px 10px; border-radius: 999px; background: rgba(255, 255, 255, 0.18); }
+.status__dot { width: 8px; height: 8px; border-radius: 50%; background: #fde68a; }
+.status--online .status__dot { background: #86efac; }
+.status--offline .status__dot, .status--model_error .status__dot { background: #fca5a5; }
+
+/* ---------- Buttons ---------- */
+.btn { font: inherit; font-weight: 600; font-size: 0.85rem; border: 0; border-radius: 10px; padding: 9px 14px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.05s, opacity 0.15s, background 0.15s; }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn--primary { background: var(--teal); color: #fff; }
+.btn--primary:hover:not(:disabled) { background: var(--teal-dark); }
+.btn--ghost { background: rgba(255, 255, 255, 0.18); color: #fff; }
+.btn--ghost:hover:not(:disabled) { background: rgba(255, 255, 255, 0.3); }
+.btn--danger { background: var(--danger); color: #fff; white-space: nowrap; }
+.btn--small { padding: 6px 10px; font-size: 0.78rem; background: var(--danger); color: #fff; }
+.error-banner .btn--ghost { background: #fee2e2; color: var(--danger); }
+
+/* ---------- Emergency banner ---------- */
+.emergency-alert { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--danger-light); border-bottom: 2px solid var(--danger); color: #7f1d1d; }
+.emergency-alert__text { display: flex; flex-direction: column; gap: 2px; flex: 1; font-size: 0.85rem; }
+.emergency-alert__close { background: none; border: 0; font-size: 1.5rem; line-height: 1; color: #7f1d1d; cursor: pointer; }
+
+/* ---------- Chat window ---------- */
+.chat-window { flex: 1; overflow-y: auto; background: linear-gradient(180deg, var(--blue-light) 0%, #fff 40%); }
+.chat-window__inner { display: flex; flex-direction: column; gap: 14px; padding: 20px 16px 8px; }
+
+.message { display: flex; align-items: flex-end; gap: 10px; }
+.message--user { justify-content: flex-end; }
+.message__avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; font-size: 0.9rem; font-weight: 700; flex-shrink: 0; }
+.message__avatar--ai { background: var(--green-light); color: var(--teal-dark); }
+.message__avatar--alert { background: var(--danger); color: #fff; }
+
+.bubble { max-width: min(78%, 640px); padding: 12px 16px; border-radius: var(--radius); font-size: 0.95rem; line-height: 1.6; overflow-wrap: anywhere; }
+.bubble p { margin: 0 0 8px; white-space: pre-wrap; }
+.bubble p:last-child, .bubble ul:last-child, .bubble ol:last-child { margin-bottom: 0; }
+.bubble ul, .bubble ol { margin: 0 0 8px; padding-left: 22px; }
+.bubble li { margin-bottom: 4px; }
+.bubble--user { background: linear-gradient(135deg, var(--teal), var(--blue)); color: #fff; border-bottom-right-radius: 4px; }
+.bubble--assistant { background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 4px; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
+.bubble--emergency { background: var(--danger-light); border: 2px solid var(--danger); }
+.bubble__label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--danger); margin-bottom: 6px; }
+
+/* ---------- Suggestions ---------- */
+.suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding-left: 44px; }
+.chip { font: inherit; font-size: 0.85rem; background: var(--teal-light); color: var(--teal-dark); border: 1px solid #99f6e4; border-radius: 999px; padding: 8px 14px; cursor: pointer; text-align: left; }
+.chip:hover { background: var(--green-light); }
+
+/* ---------- Typing indicator ---------- */
+.typing { display: flex; gap: 5px; padding: 14px 18px; }
+.typing span { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); opacity: 0.4; animation: bounce 1.2s infinite ease-in-out; }
+.typing span:nth-child(2) { animation-delay: 0.15s; }
+.typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-5px); opacity: 1; } }
+
+/* ---------- Error banner ---------- */
+.error-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 14px; background: var(--danger-light); border: 1px solid #fecaca; border-radius: 12px; color: #7f1d1d; font-size: 0.88rem; }
+.error-banner__actions { display: flex; gap: 8px; }
+
+/* ---------- Input ---------- */
+.chat-input { padding: 12px 16px 14px; background: #fff; border-top: 1px solid var(--line); }
+.chat-input__row { display: flex; align-items: flex-end; gap: 10px; }
+.chat-input__field { flex: 1; font: inherit; font-size: 0.95rem; line-height: 1.5; resize: none; padding: 11px 14px; border: 1.5px solid var(--line); border-radius: 14px; outline: none; background: var(--bg-soft); max-height: 140px; }
+.chat-input__field:focus { border-color: var(--teal); background: #fff; box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15); }
+.chat-input__send { height: 44px; padding: 0 18px; border-radius: 14px; }
+.chat-input__meta { display: flex; justify-content: space-between; gap: 10px; margin-top: 8px; font-size: 0.72rem; color: var(--muted); }
+.chat-input__count { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .navbar { padding: 10px 12px; }
+  .navbar__tagline, .status { display: none; }
+  .btn--ghost { padding: 8px 10px; font-size: 0.78rem; }
+  .bubble { max-width: 88%; font-size: 0.92rem; }
+  .message__avatar { display: none; }
+  .suggestions { padding-left: 0; }
+  .chat-window__inner { padding: 14px 10px 6px; }
+  .emergency-alert { flex-wrap: wrap; }
+  .chat-input__send { padding: 0 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) { .typing span { animation: none; opacity: 0.8; } }

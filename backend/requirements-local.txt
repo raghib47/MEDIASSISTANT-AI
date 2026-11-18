@@ -1,0 +1,8 @@
+# Extra packages for running the model locally (LLM_BACKEND=local, the default).
+# Install AFTER requirements.txt:   pip install -r requirements-local.txt
+# For an NVIDIA GPU, install the CUDA build of torch first (see https://pytorch.org/get-started/locally/).
+torch
+torchvision
+transformers>=4.50
+accelerate
+pillow
